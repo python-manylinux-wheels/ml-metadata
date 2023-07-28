@@ -18,16 +18,12 @@ jobs:
 
       - uses: actions/setup-python@v3
 
-      - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel==2.14.1
-
-      - name: Build wheels
-        env:
-          CIBW_BUILD: "cp311-manylinux_x86_64"
-          CIBW_BEFORE_BUILD_LINUX: "bash .github/workflows/scripts/build_setup.sh"
-          CIBW_ENVIRONMENT: "USE_BAZEL_VERSION=3.7.2"
-        run: python -m cibuildwheel --output-dir wheelhouse
+      - name: Run Docker build
+        run: |
+          DOCKER_SERVICE=manylinux-python311
+          sudo docker-compose build ${DOCKER_SERVICE}
+          sudo docker-compose run ${DOCKER_SERVICE}
 
       - uses: actions/upload-artifact@v3
         with:
-          path: ./wheelhouse/*.whl
+          path: ./dist/*.whl

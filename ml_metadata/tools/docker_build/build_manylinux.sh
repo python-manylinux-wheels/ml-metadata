@@ -37,8 +37,10 @@ function setup_environment() {
     PYTHON_DIR=/opt/python/cp39-cp39
   elif [[ "${PYTHON_VERSION}" == 310 ]]; then
     PYTHON_DIR=/opt/python/cp310-cp310
+  elif [[ "${PYTHON_VERSION}" == 311 ]]; then
+    PYTHON_DIR=/opt/python/cp311-cp311
   else
-    echo "Must set PYTHON_VERSION env to 38|39|310"; exit 1;
+    echo "Must set PYTHON_VERSION env to 38|39|310|311"; exit 1;
   fi
   export PIP_BIN="${PYTHON_DIR}"/bin/pip
   export PYTHON_BIN_PATH="${PYTHON_DIR}"/bin/python
